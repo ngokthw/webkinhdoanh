@@ -1,6 +1,7 @@
 <html>
 <head>
     <title>Travel Expense Report</title>
+
     <style>
         body {
             background-image: url("hình nền.png");
@@ -48,7 +49,8 @@
             min-width: 560px;
         }
 
-        th, td {
+        th,
+        td {
             border: 1px solid gray;
             padding: 4px;
         }
@@ -61,12 +63,11 @@
             overflow-x: auto;
         }
 
-        .description-input {
-            width: 95%;
-        }
-
-        .amount-input {
-            width: 70px;
+        /* Làm input và select full chiều ngang của cột */
+        .expense-table input,
+        .expense-table select {
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .buttons {
@@ -81,7 +82,9 @@
         }
     </script>
 </head>
+
 <body>
+
     <div class="container">
 
         <div class="logo">
@@ -89,6 +92,7 @@
         </div>
 
         <h2>Travel Expense Report</h2>
+
         <hr>
 
         <form id="expenseForm" onsubmit="return submitReport();">
@@ -108,6 +112,7 @@
 
             <div class="form-row">
                 3) Department:
+
                 <select name="department">
                     <option>Accounting</option>
                     <option>Finance</option>
@@ -131,7 +136,9 @@
             </div>
 
             <div class="expense-table">
+
                 <table>
+
                     <tr>
                         <th>Date</th>
                         <th>Description</th>
@@ -140,8 +147,14 @@
                     </tr>
 
                     <tr>
-                        <td><input type="date" name="date1"></td>
-                        <td><input class="description-input" type="text" name="description1"></td>
+                        <td>
+                            <input type="date" name="date1">
+                        </td>
+
+                        <td>
+                            <input type="text" name="description1">
+                        </td>
+
                         <td>
                             <select name="category1">
                                 <option>Meal</option>
@@ -150,12 +163,21 @@
                                 <option>Other</option>
                             </select>
                         </td>
-                        <td><input class="amount-input" type="text" name="amount1"></td>
+
+                        <td>
+                            <input type="text" name="amount1">
+                        </td>
                     </tr>
 
                     <tr>
-                        <td><input type="date" name="date2"></td>
-                        <td><input class="description-input" type="text" name="description2"></td>
+                        <td>
+                            <input type="date" name="date2">
+                        </td>
+
+                        <td>
+                            <input type="text" name="description2">
+                        </td>
+
                         <td>
                             <select name="category2">
                                 <option>Meal</option>
@@ -164,12 +186,21 @@
                                 <option>Other</option>
                             </select>
                         </td>
-                        <td><input class="amount-input" type="text" name="amount2"></td>
+
+                        <td>
+                            <input type="text" name="amount2">
+                        </td>
                     </tr>
 
                     <tr>
-                        <td><input type="date" name="date3"></td>
-                        <td><input class="description-input" type="text" name="description3"></td>
+                        <td>
+                            <input type="date" name="date3">
+                        </td>
+
+                        <td>
+                            <input type="text" name="description3">
+                        </td>
+
                         <td>
                             <select name="category3">
                                 <option>Meal</option>
@@ -178,12 +209,21 @@
                                 <option>Other</option>
                             </select>
                         </td>
-                        <td><input class="amount-input" type="text" name="amount3"></td>
+
+                        <td>
+                            <input type="text" name="amount3">
+                        </td>
                     </tr>
 
                     <tr>
-                        <td><input type="date" name="date4"></td>
-                        <td><input class="description-input" type="text" name="description4"></td>
+                        <td>
+                            <input type="date" name="date4">
+                        </td>
+
+                        <td>
+                            <input type="text" name="description4">
+                        </td>
+
                         <td>
                             <select name="category4">
                                 <option>Meal</option>
@@ -192,29 +232,63 @@
                                 <option>Other</option>
                             </select>
                         </td>
-                        <td><input class="amount-input" type="text" name="amount4"></td>
+
+                        <td>
+                            <input type="text" name="amount4">
+                        </td>
                     </tr>
+
                 </table>
+
             </div>
 
             <div class="form-row">
                 6) Have you submitted your receipts?
-                <input type="radio" name="receipts" id="yes" value="yes">
-                <label for="yes">Yes</label>
 
-                <input type="radio" name="receipts" id="no" value="no">
-                <label for="no">No</label>
+                <input
+                    type="radio"
+                    name="receipts"
+                    id="yes"
+                    value="yes"
+                >
+
+                <label for="yes">
+                    Yes
+                </label>
+
+                <input
+                    type="radio"
+                    name="receipts"
+                    id="no"
+                    value="no"
+                >
+
+                <label for="no">
+                    No
+                </label>
             </div>
 
             <div class="buttons">
-                <input type="submit" value="Submit travel expenses">
-                <input type="reset" value="Reset">
+
+                <input
+                    type="submit"
+                    value="Submit travel expenses"
+                >
+
+                <input
+                    type="reset"
+                    value="Reset"
+                >
+
             </div>
 
         </form>
 
-        <p>Questions? Contact Debbie Larson in Accounting (ext. 2150).</p>
+        <p>
+            Questions? Contact Debbie Larson in Accounting (ext. 2150).
+        </p>
+
     </div>
+
 </body>
 </html>
-`
