@@ -1,0 +1,318 @@
+<html>
+<head>
+    <title>Đăng ký thành viên</title>
+    <style>
+        body {
+            font-family: "Times New Roman";
+        }
+
+        .container {
+            width: 620px;
+            margin: 20px auto;
+            border: 1px solid cornflowerblue;
+            padding: 8px;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        #tbMembers {
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        #tbMembers th {
+            background-color: blue;
+            color: white;
+            text-align: left;
+        }
+
+        #tbMembers th, #tbMembers td {
+            border: 1px solid black;
+        }
+
+        .color-blue {
+            background-color: blue;
+            color: white;
+        }
+
+        .color-red {
+            background-color: red;
+            color: black;
+        }
+
+        .color-yellow {
+            background-color: yellow;
+        }
+
+        .color-green {
+            background-color: green;
+        }
+
+        .color-purple {
+            background-color: violet;
+        }
+    </style>
+    <script>
+        function loadDate() {
+            var day = document.getElementById("selDay");
+            var month = document.getElementById("selMonth");
+            var year = document.getElementById("selYear");
+            for (var i = 1; i <= 31; i++) {
+                var option = document.createElement("option");
+                option.value = i;
+                option.innerHTML = (i < 10 ? "0" + i : i);
+                day.appendChild(option);
+            }
+            for (var i = 1; i <= 12; i++) {
+                var option = document.createElement("option");
+                option.value = i;
+                option.innerHTML = i;
+                month.appendChild(option);
+            }
+            var currentYear = new Date().getFullYear();
+
+            for (var i = 1970; i <= currentYear; i++) {
+                var option = document.createElement("option");
+                option.value = i;
+                option.innerHTML = i;
+                year.appendChild(option);
+            }
+        }
+        function register() {
+            var name = document.getElementById("txtName").value.trim();
+            var email = document.getElementById("txtEmail").value.trim();
+            if (name == "") {
+                alert("Vui lòng nhập tên!");
+                document.getElementById("txtName").focus();
+                return;
+            }
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailPattern.test(email)) {
+                alert("Email không hợp lệ!");
+                document.getElementById("txtEmail").focus();
+                return;
+            }
+            var day = document.getElementById("selDay").value;
+            var month = document.getElementById("selMonth").value;
+            var year = document.getElementById("selYear").value;
+
+            var birthday = day.padStart(2, "0") + "/" +
+                           month.padStart(2, "0") + "/" + year;
+
+            var date = new Date(Number(year), Number(month) - 1, Number(day));
+
+            if (date.getFullYear() != Number(year) ||
+                date.getMonth() != Number(month) - 1 ||
+                date.getDate() != Number(day)) {
+                alert("Ngày sinh không hợp lệ!");
+                return;
+            }
+            var gender = document.querySelector('input[name="gender"]:checked').value;
+
+            var hobbies = document.getElementsByName("hobby");
+            var hobbyList = [];
+
+            for (var i = 0; i < hobbies.length; i++) {
+                if (hobbies[i].checked) {
+                    hobbyList.push(hobbies[i].value);
+                }
+            }
+
+            var hobbyText = hobbyList.join(", ");
+
+            var color = document.querySelector('input[name="color"]:checked').value;
+
+            var tbody = document.getElementById("tbMemberBody");
+            var tr = document.createElement("tr");
+
+            var tdName = document.createElement("td");
+            tdName.innerHTML = name;
+            tr.appendChild(tdName);
+
+            var tdEmail = document.createElement("td");
+            tdEmail.innerHTML = email;
+            tr.appendChild(tdEmail);
+
+            var tdGender = document.createElement("td");
+            tdGender.innerHTML = gender;
+            tr.appendChild(tdGender);
+
+            var tdBirthday = document.createElement("td");
+            tdBirthday.innerHTML = birthday;
+            tr.appendChild(tdBirthday);
+
+            var tdHobby = document.createElement("td");
+            tdHobby.innerHTML = hobbyText;
+            tr.appendChild(tdHobby);
+
+            var tdColor = document.createElement("td");
+            tdColor.innerHTML = color;
+            tr.appendChild(tdColor);
+
+            tr.onmouseover = function() {
+                tr.style.backgroundColor = "yellow";
+            };
+
+            tr.onmouseout = function() {
+                tr.style.backgroundColor = "white";
+            };
+
+            tbody.appendChild(tr);
+
+            alert("Đăng ký thành công!");
+        }
+
+        // Hàm nút Tiếp
+        function resetForm() {
+            document.getElementById("frmRegister").reset();
+
+            document.getElementById("txtName").focus();
+        }
+    </script>
+</head>
+
+<body onload="loadDate()">
+
+    <div class="container">
+        <h1>Đăng ký thành viên</h1>
+        <hr>
+        <br>
+
+        <form id="frmRegister" onsubmit="return false;">
+            <table>
+                <tr>
+                    <td>Tên(*)</td>
+                    <td>
+                        <input type="text" id="txtName">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Ngày sinh(*)</td>
+                    <td>
+                        Ngày:
+                        <select id="selDay"></select>
+
+                        Tháng:
+                        <select id="selMonth"></select>
+
+                        Năm:
+                        <select id="selYear"></select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Giới tính(*)</td>
+                    <td>
+                        <input type="radio" name="gender"
+                               value="Nam" checked>Nam
+
+                        <input type="radio" name="gender"
+                               value="Nữ">Nữ
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Email(*)</td>
+                    <td>
+                        <input type="text" id="txtEmail">
+                    </td>
+                </tr>
+            </table>
+
+            <br>
+
+            Sở thích của bạn:
+            <br>
+
+            &nbsp;&nbsp;
+            <input type="checkbox" name="hobby"
+                   value="Mua sắm" checked>Mua sắm
+            <br>
+
+            &nbsp;&nbsp;
+            <input type="checkbox" name="hobby"
+                   value="Du lịch" checked>Du lịch
+            <br>
+
+            &nbsp;&nbsp;
+            <input type="checkbox" name="hobby"
+                   value="Tán gẫu" checked>Tán gẫu
+            <br>
+
+            &nbsp;&nbsp;
+            <input type="checkbox" name="hobby"
+                   value="Đọc sách" checked>Đọc sách
+            <br>
+
+            &nbsp;&nbsp;
+            <input type="checkbox" name="hobby"
+                   value="Nghe nhạc" checked>Nghe nhạc
+            <br>
+
+            Màu yêu thích của bạn:
+            <br>
+
+            &nbsp;&nbsp;
+            <input type="radio" name="color"
+                   value="Màu xanh da trời" checked>
+            <span class="color-blue">Màu xanh da trời</span>
+            <br>
+
+            &nbsp;&nbsp;
+            <input type="radio" name="color"
+                   value="Màu đỏ">
+            <span class="color-red">Màu đỏ</span>
+            <br>
+
+            &nbsp;&nbsp;
+            <input type="radio" name="color"
+                   value="Màu vàng">
+            <span class="color-yellow">Màu vàng</span>
+            <br>
+
+            &nbsp;&nbsp;
+            <input type="radio" name="color"
+                   value="Màu xanh xanh lá cây">
+            <span class="color-green">Màu xanh xanh lá cây</span>
+            <br>
+
+            &nbsp;&nbsp;
+            <input type="radio" name="color"
+                   value="Màu xanh tím">
+            <span class="color-purple">Màu xanh tím</span>
+            <br><br>
+
+            <input type="button" value="Đăng ký"
+                   onclick="register()">
+
+            <input type="button" value="Tiếp"
+                   onclick="resetForm()">
+        </form>
+
+        <table id="tbMembers" border="1">
+            <thead>
+                <tr>
+                    <th>Tên</th>
+                    <th>Email</th>
+                    <th>Giới tính</th>
+                    <th>Năm sinh</th>
+                    <th>Sở thích</th>
+                    <th>Màu yêu thích</th>
+                </tr>
+            </thead>
+
+            <tbody id="tbMemberBody">
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

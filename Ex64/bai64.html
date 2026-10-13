@@ -1,0 +1,187 @@
+<html>
+<head>
+    <title>Bài 64 - Dynamic Table</title>
+
+    <style>
+        body {
+            font-family: "Times New Roman";
+        }
+
+        .container {
+            width: 550px;
+            margin: 20px auto;
+            border: 1px solid black;
+            padding: 5px;
+        }   
+        table {
+            border-collapse: collapse;
+            margin-top: 15px;
+            margin-bottom: 30px;
+        }
+
+        td {
+            border: 1px solid #aaa;
+            width: 165px;
+            cursor: pointer;
+        }
+
+        .selected {
+            background-color: red;
+        }
+
+        button {
+            margin-right: 3px;
+        }
+    </style>
+
+    <script>
+        function showClock() {
+            var now = new Date();
+
+            var h = String(now.getHours()).padStart(2, "0");
+            var m = String(now.getMinutes()).padStart(2, "0");
+            var s = String(now.getSeconds()).padStart(2, "0");
+
+            document.getElementById("clock").innerHTML =
+                h + ":" + m + ":" + s;
+        }
+        function checkMouse(event) {
+            if (event.button == 0) {
+                alert("Bạn đã click chuột trái");
+            } else if (event.button == 2) { 
+                alert("Bạn đã click chuột phải");
+            }
+        }
+
+        function createRow(text1, text2) {
+            var tr = document.createElement("tr");
+
+            var td1 = document.createElement("td");
+            td1.innerHTML = text1;
+            tr.appendChild(td1);
+
+            var td2 = document.createElement("td");
+            td2.innerHTML = text2;
+            tr.appendChild(td2);
+
+            // Click để đổi màu hàng
+            tr.onclick = function() {
+                if (tr.className == "selected") {
+                    tr.className = "";
+                } else {
+                    tr.className = "selected";
+                }
+            };
+
+            return tr;
+        }
+
+        function loadTable() {
+            var tbody = document.getElementById("tbData");
+
+            for (var i = 1; i <= 3; i++) {
+                var tr = createRow(
+                    "Thêm dòng mới ở đây",
+                    "Thêm dòng mới ở đây"
+                );
+
+                tbody.appendChild(tr);
+            }
+
+            for (var i = 1; i <= 3; i++) {
+                var tr = createRow(
+                    "Dòng " + i + " cột 1",
+                    "Dòng " + i + " cột 2"
+                );
+
+                tbody.appendChild(tr);
+            }
+
+            showClock();
+            setInterval(showClock, 1000);
+        }
+
+        function addRow() {
+            var tbody = document.getElementById("tbData");
+
+            var tr = createRow(
+                "Thêm dòng mới ở đây",
+                "Thêm dòng mới ở đây"
+            );
+
+            tbody.appendChild(tr);
+        }
+
+        function deleteRow() {
+            var tbody = document.getElementById("tbData");
+
+            for (var i = tbody.rows.length - 1; i >= 0; i--) {
+                if (tbody.rows[i].className == "selected") {
+                    tbody.removeChild(tbody.rows[i]);
+                }
+            }
+        }
+
+        function showRows() {
+            var table = document.getElementById("myTable");
+
+            for (var i = 0; i < table.rows.length; i++) {
+                for (var j = 0; j < table.rows[i].cells.length; j++) {
+                    table.rows[i].cells[j].style.border = "none";
+                }
+
+                table.rows[i].style.borderBottom = "1px solid black";
+            }
+        }
+
+        function showColumns() {
+            var table = document.getElementById("myTable");
+
+            for (var i = 0; i < table.rows.length; i++) {
+                table.rows[i].style.borderBottom = "none";
+
+                for (var j = 0; j < table.rows[i].cells.length; j++) {
+                    table.rows[i].cells[j].style.border = "none";
+                    table.rows[i].cells[j].style.borderRight =
+                        "1px solid black";
+                }
+            }
+        }
+
+        function openPage() {
+            window.open("https://tranduythanh.com", "_blank");
+        }
+    </script>
+</head>
+
+<body onload="loadTable()">
+
+    <div class="container">
+
+        <div id="clock"></div>
+
+        <p onmousedown="checkMouse(event)"
+           oncontextmenu="return false;">
+            Click chuột vào dòng này. Sẽ xuất hiện
+            thông báo phím bấm của chuột
+        </p>
+
+        <table id="myTable">
+            <tbody id="tbData">
+            </tbody>
+        </table>
+
+        <button onclick="addRow()">Thêm vào</button>
+
+        <button onclick="deleteRow()">Xóa</button>
+
+        <button onclick="showRows()">Chỉ hiện dòng</button>
+
+        <button onclick="showColumns()">Chỉ hiện cột</button>
+
+        <button onclick="openPage()">Mở một trang mới</button>
+
+    </div>
+
+</body>
+</html>
